@@ -6,5 +6,10 @@ export const routes: Routes = [
     path: 'login',
     loadComponent: () => loadRemoteModule('login' , './Component')
     .then((m) => m.LoginComponent)
+  },
+  {
+    path: 'system',
+    loadComponent: () => loadRemoteModule('system' , './Component')
+    .then((m) => m.SystemComponent)
   }
 ];
