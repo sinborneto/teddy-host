@@ -5,6 +5,7 @@ import { providePrimeNG } from 'primeng/config';
 import Aura from '@primeng/themes/aura';
 
 import { routes } from './app.routes';
+import { SharedService } from './shared/shared.service';
 
 export const appConfig: ApplicationConfig = {
   providers: [provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes),  provideAnimationsAsync(),
@@ -12,5 +13,5 @@ export const appConfig: ApplicationConfig = {
         theme: {
             preset: Aura
         }
-    })]
+    }), SharedService ]
 };
