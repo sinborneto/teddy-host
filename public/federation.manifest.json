@@ -1,4 +1,4 @@
 {
-	"login": "http://localhost:4201/remoteEntry.json",
-	"system": "http://localhost:4202/remoteEntry.json"
+  "login": "https://teddy-mu.vercel.app/login-mfe/remoteEntry.js",
+  "system": "https://teddy-mu.vercel.app/system-mfe/remoteEntry.js"
 }
