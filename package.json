@@ -21,6 +21,7 @@
     "@angular/router": "^19.2.0",
     "@primeng/themes": "^19.0.9",
     "@softarc/native-federation-node": "^2.0.10",
+    "@teddy-teste/shared": "^0.0.4",
     "chart.js": "^4.4.8",
     "es-module-shims": "^1.5.12",
     "primeng": "^19.0.9",
@@ -33,13 +34,14 @@
     "@angular/cli": "^19.2.1",
     "@angular/compiler-cli": "^19.2.0",
     "@types/jasmine": "~5.1.0",
+    "cypress": "^14.1.0",
     "jasmine-core": "~5.6.0",
     "karma": "~6.4.0",
     "karma-chrome-launcher": "~3.2.0",
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.1.0",
-    "cypress": "^14.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
+    "ng-packagr": "^19.2.0",
     "typescript": "~5.7.2"
   }
 }

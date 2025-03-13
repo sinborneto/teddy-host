@@ -5,7 +5,7 @@ import { providePrimeNG } from 'primeng/config';
 import Aura from '@primeng/themes/aura';
 
 import { routes } from './app.routes';
-import { SharedService } from './shared/shared.service';
+import { SharedService } from '@teddy-teste/shared';
 import { provideHttpClient } from '@angular/common/http';
 
 export const appConfig: ApplicationConfig = {

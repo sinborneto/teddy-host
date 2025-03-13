@@ -73,7 +73,7 @@ export class SharedService {
   }
 
   clearUser() {
-    sessionStorage.removeItem('userData'); 
+    sessionStorage.removeItem('userData');
     this.userSource.next(null);
   }
 }
