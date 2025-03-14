@@ -1,59 +1,102 @@
-# Host
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.1.
+# **Projeto Angular com Docker e Microfrontends**
 
-## Development server
+Este projeto é uma aplicação Angular configurada para ser executada dentro de um contêiner Docker. Além disso, ele está configurado para consumir **micro-frontends** que estão hospedados no **Vercel**. Abaixo estão os passos para rodar o projeto usando o Docker e como os micro-frontends são integrados.
 
-To start a local development server, run:
+## **Pré-requisitos**
 
-```bash
-ng serve
-```
+Antes de começar, certifique-se de que você tem os seguintes softwares instalados no seu computador:
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+- [Docker](https://www.docker.com/get-started) — Para construir e rodar contêineres.
+- [Node.js](https://nodejs.org/) — Para rodar o Angular localmente (durante o processo de build).
 
-## Code scaffolding
+## **Passos para rodar o projeto**
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+### 1. **Clone o repositório**
 
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+Se você ainda não tem o projeto em sua máquina, clone o repositório:
 
 ```bash
-ng generate --help
+git clone https://github.com/sinborneto/teddy-host.git
+cd teddy-host
 ```
 
-## Building
+### 2. **Construir a Imagem Docker**
 
-To build the project run:
+Para construir a imagem Docker do projeto, execute o seguinte comando no diretório do projeto, onde o Dockerfile está localizado:
 
 ```bash
-ng build
+docker build -t angular-docker .
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+**Explicação:**
 
-## Running unit tests
+- `docker build`: Comando usado para construir a imagem Docker.
+- `-t angular-docker`: A flag `-t` serve para atribuir um nome à imagem que está sendo criada (no caso, `angular-docker`).
+- `.`: O ponto final indica que o contexto de construção é o diretório atual (onde o Dockerfile está localizado).
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+Este comando cria uma imagem Docker baseada no seu `Dockerfile`, que contém as configurações para rodar o seu projeto Angular dentro de um contêiner.
+
+### 3. **Rodar o Contêiner**
+
+Depois que a imagem for criada, o próximo passo é rodar o contêiner a partir dessa imagem. Execute o comando:
 
 ```bash
-ng test
+docker run -d -p 8080:80 angular-docker
 ```
 
-## Running end-to-end tests
+**Explicação:**
 
-For end-to-end (e2e) testing, run:
+- `docker run`: Comando usado para rodar um contêiner Docker.
+- `-d`: A flag `-d` executa o contêiner em segundo plano (modo "detached").
+- `-p 8080:80`: A flag `-p` mapeia a porta `8080` do seu computador local para a porta `80` dentro do contêiner Docker. Isso permite acessar o aplicativo na URL `http://localhost:8080`.
+- `angular-docker`: O nome da imagem Docker que foi criada no passo anterior.
+
+### 4. **Acessar o Projeto**
+
+Agora, você pode acessar a aplicação Angular no seu navegador, indo para a URL:
+
+```
+http://localhost:8080
+```
+
+Isso irá abrir a aplicação Angular que está sendo servida dentro do contêiner Docker.
+
+### 5. **Micro-frontends**
+
+Este projeto consome **micro-frontends** hospedados no **Vercel**. Os micro-frontends são carregados dinamicamente a partir das seguintes URLs:
+
+- **Login Microfrontend**: [https://login-mfe.vercel.app](https://login-mfe.vercel.app)
+- **System Microfrontend**: [https://system-mfe.vercel.app](https://system-mfe.vercel.app)
+
+Esses micro-frontends são integrados ao projeto principal e são consumidos de forma transparente durante a execução da aplicação.
+
+### 6. **Configuração do Micro-frontend**
+
+Os micro-frontends são carregados dinamicamente no seu projeto Angular utilizando a arquitetura de **Module Federation**. A configuração está presente no projeto, e os módulos são importados a partir das URLs mencionadas acima. Isso permite que a aplicação principal se integre de forma eficiente com os micro-frontends hospedados no Vercel.
+
+### 7. **Parar o Contêiner**
+
+Se você precisar parar o contêiner que está rodando, use o comando:
 
 ```bash
-ng e2e
+docker ps
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+Isso irá listar os contêineres em execução. Encontre o **ID do contêiner** do seu projeto e execute:
 
-## Additional Resources
+```bash
+docker stop <id-do-container>
+```
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Ou se preferir parar todos os contêineres:
+
+```bash
+docker stop $(docker ps -q)
+```
+
+## **Conclusão**
+
+Agora você está rodando seu projeto Angular dentro de um contêiner Docker, integrando-o com micro-frontends hospedados no Vercel! Isso facilita a execução do projeto em qualquer ambiente, garantindo que ele seja executado da mesma forma em todas as máquinas.
+
+Se você precisar de mais alguma ajuda, consulte a [documentação do Docker](https://docs.docker.com/) ou a [documentação do Vercel](https://vercel.com/docs).
